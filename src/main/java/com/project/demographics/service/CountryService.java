@@ -1,4 +1,3 @@
-// 2. CountryService.java
 package com.project.demographics.service;
 
 import com.project.demographics.entity.City;
@@ -76,8 +75,8 @@ public class CountryService {
     @Transactional
     public void deleteCountry(String code) {
         countryRepository.findById(code).ifPresent(country -> {
-            cityRepository.deleteAllByCountryCode(code); // Fixed method name
-            countryLanguageRepository.deleteAllByIdCountryCode(code); // Fixed method name
+            cityRepository.deleteAllByCountryCode(code);
+            countryLanguageRepository.deleteAllByIdCountryCode(code);
             countryRepository.delete(country);
         });
     }
@@ -109,6 +108,6 @@ public class CountryService {
 
     @Transactional
     public void deleteCountryLanguage(String countryCode, String language) {
-        countryLanguageRepository.deleteById(new CountryLanguage.CountryLanguageId(countryCode, language));
+        countryLanguageRepository.deleteById(new CountryLanguageId(countryCode, language)); // Fixed reference to CountryLanguageId
     }
 }
