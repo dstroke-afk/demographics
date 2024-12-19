@@ -10,25 +10,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/countrylanguage")
 public class CountryLanguageController {
-
     private final CountryLanguageService countryLanguageService;
 
     public CountryLanguageController(CountryLanguageService countryLanguageService) {
         this.countryLanguageService = countryLanguageService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CountryLanguage>> getAllCountryLanguages() {
-        return ResponseEntity.ok(countryLanguageService.getAllCountryLanguages());
-    }
-
     @GetMapping("/{code}")
     public ResponseEntity<List<CountryLanguage>> getCountryLanguagesByCountryCode(@PathVariable String code) {
-        return ResponseEntity.ok(countryLanguageService.getCountryLanguagesByCountryCode(code));
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> createCountryLanguage(@RequestBody CountryLanguage countryLanguage) {
-        return countryLanguageService.createCountryLanguage(countryLanguage);
+        List<CountryLanguage> countryLanguages = countryLanguageService.getCountryLanguagesByCountryCode(code);
+        return ResponseEntity.ok(countryLanguages);
     }
 }
