@@ -10,5 +10,4 @@ public class DemographicsApplication {
 		SpringApplication.run(DemographicsApplication.class, args);
 		
 	}
-
 }

@@ -5,6 +5,8 @@ import com.project.demographics.service.CountryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/country")
 public class CountryController {
@@ -17,5 +19,10 @@ public class CountryController {
     @PostMapping("/create")
     public ResponseEntity<?> createCountry(@RequestBody Country country) {
         return countryService.createCountry(country);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Country>> getAllCountries() {
+        return ResponseEntity.ok(countryService.getAllCountriesWithDetails());
     }
 }
