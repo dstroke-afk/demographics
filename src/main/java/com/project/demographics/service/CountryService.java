@@ -9,6 +9,7 @@ import com.project.demographics.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService {
@@ -32,5 +33,20 @@ public class CountryService {
             country.setCountryLanguages(languages);
         }
         return countries;
+    }
+
+    public Optional<Country> getCountryWithDetailsByName(String name) {
+        Optional<Country> optionalCountry = countryRepository.findByName(name);
+        if (optionalCountry.isPresent()) {
+            Country country = optionalCountry.get();
+            List<City> cities = cityRepository.findByCountryCode(country.getCode());
+            country.setCities(cities);
+
+            List<CountryLanguage> languages = countryLanguageRepository.findByIdCountryCode(country.getCode());
+            country.setCountryLanguages(languages);
+
+            return Optional.of(country);
+        }
+        return Optional.empty();
     }
 }
