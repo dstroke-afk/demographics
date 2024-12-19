@@ -1,62 +1,55 @@
 package com.project.demographics.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "city")
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Integer id;
     private String name;
-
-    @Column(name = "countrycode")
     private String countryCode;
-
     private String district;
+    private Integer population;
 
-    private int population;
+    // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getCountryCode() {
+        return countryCode;
+    }
 
-	public String getCountryCode() {
-		return countryCode;
-	}
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+    public String getDistrict() {
+        return district;
+    }
 
-	public String getDistrict() {
-		return district;
-	}
+    public void setDistrict(String district) {
+        this.district = district;
+    }
 
-	public void setDistrict(String district) {
-		this.district = district;
-	}
+    public Integer getPopulation() {
+        return population;
+    }
 
-	public int getPopulation() {
-		return population;
-	}
-
-	public void setPopulation(int population) {
-		this.population = population;
-	}
-    
-    
+    public void setPopulation(Integer population) {
+        this.population = population;
+    }
 }
