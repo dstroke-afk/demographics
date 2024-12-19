@@ -7,6 +7,7 @@ import com.project.demographics.repository.CityRepository;
 import com.project.demographics.repository.CountryLanguageRepository;
 import com.project.demographics.repository.CountryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +49,65 @@ public class CountryService {
             return Optional.of(country);
         }
         return Optional.empty();
+    }
+
+    @Transactional
+    public Country updateCountry(String code, Country updatedCountry) {
+        return countryRepository.findById(code).map(country -> {
+            country.setName(updatedCountry.getName());
+            country.setContinent(updatedCountry.getContinent());
+            country.setRegion(updatedCountry.getRegion());
+            country.setSurfaceArea(updatedCountry.getSurfaceArea());
+            country.setIndepYear(updatedCountry.getIndepYear());
+            country.setPopulation(updatedCountry.getPopulation());
+            country.setLifeExpectancy(updatedCountry.getLifeExpectancy());
+            country.setGnp(updatedCountry.getGnp());
+            country.setGnpOld(updatedCountry.getGnpOld());
+            country.setLocalName(updatedCountry.getLocalName());
+            country.setGovernmentForm(updatedCountry.getGovernmentForm());
+            country.setHeadOfState(updatedCountry.getHeadOfState());
+            country.setCapital(updatedCountry.getCapital());
+            country.setCode2(updatedCountry.getCode2());
+            return countryRepository.save(country);
+        }).orElseThrow(() -> new RuntimeException("Country not found"));
+    }
+
+    @Transactional
+    public void deleteCountry(String code) {
+        countryRepository.findById(code).ifPresent(country -> {
+            cityRepository.deleteByCountryCode(code);
+            countryLanguageRepository.deleteByIdCountryCode(code);
+            countryRepository.delete(country);
+        });
+    }
+
+    @Transactional
+    public City updateCity(int id, City updatedCity) {
+        return cityRepository.findById(id).map(city -> {
+            city.setName(updatedCity.getName());
+            city.setCountryCode(updatedCity.getCountryCode());
+            city.setDistrict(updatedCity.getDistrict());
+            city.setPopulation(updatedCity.getPopulation());
+            return cityRepository.save(city);
+        }).orElseThrow(() -> new RuntimeException("City not found"));
+    }
+
+    @Transactional
+    public void deleteCity(int id) {
+        cityRepository.deleteById(id);
+    }
+
+    @Transactional
+    public CountryLanguage updateCountryLanguage(String countryCode, String language, CountryLanguage updatedCountryLanguage) {
+        return countryLanguageRepository.findById(new CountryLanguage.CountryLanguageId(countryCode, language)).map(countryLanguage -> {
+            countryLanguage.setIsOfficial(updatedCountryLanguage.isOfficial());
+            countryLanguage.setPercentage(updatedCountryLanguage.getPercentage());
+            return countryLanguageRepository.save(countryLanguage);
+        }).orElseThrow(() -> new RuntimeException("CountryLanguage not found"));
+    }
+
+    @Transactional
+    public void deleteCountryLanguage(String countryCode, String language) {
+        countryLanguageRepository.deleteById(new CountryLanguage.CountryLanguageId(countryCode, language));
     }
 }
