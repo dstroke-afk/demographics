@@ -1,7 +1,8 @@
 package com.project.demographics.repository;
 
 import com.project.demographics.entity.CountryLanguage;
-import com.project.demographics.entity.CountryLanguage.CountryLanguageId;
+import com.project.demographics.entity.CountryLanguageId;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

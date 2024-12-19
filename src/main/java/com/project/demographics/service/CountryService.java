@@ -3,6 +3,7 @@ package com.project.demographics.service;
 import com.project.demographics.entity.City;
 import com.project.demographics.entity.Country;
 import com.project.demographics.entity.CountryLanguage;
+import com.project.demographics.entity.CountryLanguageId;
 import com.project.demographics.repository.CityRepository;
 import com.project.demographics.repository.CountryLanguageRepository;
 import com.project.demographics.repository.CountryRepository;
@@ -99,7 +100,7 @@ public class CountryService {
 
     @Transactional
     public CountryLanguage updateCountryLanguage(String countryCode, String language, CountryLanguage updatedCountryLanguage) {
-        return countryLanguageRepository.findById(new CountryLanguage.CountryLanguageId(countryCode, language)).map(countryLanguage -> {
+        return countryLanguageRepository.findById(new CountryLanguageId(countryCode, language)).map(countryLanguage -> {
             countryLanguage.setIsOfficial(updatedCountryLanguage.isOfficial());
             countryLanguage.setPercentage(updatedCountryLanguage.getPercentage());
             return countryLanguageRepository.save(countryLanguage);
@@ -108,6 +109,6 @@ public class CountryService {
 
     @Transactional
     public void deleteCountryLanguage(String countryCode, String language) {
-        countryLanguageRepository.deleteById(new CountryLanguageId(countryCode, language)); // Fixed reference to CountryLanguageId
+        countryLanguageRepository.deleteById(new CountryLanguageId(countryCode, language));
     }
 }
