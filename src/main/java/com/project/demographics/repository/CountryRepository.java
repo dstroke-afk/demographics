@@ -1,5 +1,7 @@
 package com.project.demographics.repository;
 
-public class CountryRepository {
+import com.project.demographics.entity.Country;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+public interface CountryRepository extends JpaRepository<Country, String> {
 }
