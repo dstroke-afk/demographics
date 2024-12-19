@@ -9,19 +9,10 @@ import java.util.List;
 
 @Service
 public class CityService {
-
     private final CityRepository cityRepository;
 
     public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
-    }
-
-    public List<City> getAllCities() {
-        return cityRepository.findAll();
-    }
-
-    public List<City> getCitiesByCountryCode(String code) {
-        return cityRepository.findByCountryCode(code);
     }
 
     public ResponseEntity<?> createCity(City city) {
@@ -30,10 +21,19 @@ public class CityService {
             return ResponseEntity.badRequest().body("{\"message\": \"Missing fields.\"}");
         }
 
-        if (cityRepository.existsById(city.getId())) {
+        if (cityRepository.findById(city.getId()).isPresent()) {
             return ResponseEntity.badRequest().body("{\"message\": \"Duplicate ID value.\"}");
         }
 
-        return ResponseEntity.ok(cityRepository.save(city));
+        cityRepository.save(city);
+        return ResponseEntity.ok(city);
+    }
+
+    public List<City> getAllCities() {
+        return cityRepository.findAll();
+    }
+
+    public List<City> getCitiesByCountryCode(String countryCode) {
+        return cityRepository.findByCountryCode(countryCode);
     }
 }
