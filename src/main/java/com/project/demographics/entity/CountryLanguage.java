@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "countrylanguage")
+@Table(name = "country_language")
 public class CountryLanguage {
     @EmbeddedId
     private CountryLanguageId id;
@@ -13,7 +13,6 @@ public class CountryLanguage {
     private boolean isOfficial;
     private float percentage;
 
-    // Getters and setters
     public CountryLanguageId getId() {
         return id;
     }
@@ -26,8 +25,8 @@ public class CountryLanguage {
         return isOfficial;
     }
 
-    public void setIsOfficial(boolean isOfficial) {
-        this.isOfficial = isOfficial;
+    public void setOfficial(boolean official) {
+        isOfficial = official;
     }
 
     public float getPercentage() {

@@ -17,7 +17,6 @@ public class CountryLanguageId implements Serializable {
         this.language = language;
     }
 
-    // Getters, setters, equals, and hashCode
     public String getCountryCode() {
         return countryCode;
     }
@@ -38,11 +37,9 @@ public class CountryLanguageId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CountryLanguageId that = (CountryLanguageId) o;
-
-        if (!countryCode.equals(that.countryCode)) return false;
-        return language.equals(that.language);
+        return Objects.equals(countryCode, that.countryCode) &&
+               Objects.equals(language, that.language);
     }
 
     @Override
